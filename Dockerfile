@@ -7,29 +7,29 @@ RUN localedef -f UTF-8 -i zh_CN zh_CN.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
-  && apt-get install curl software-properties-common -y
-RUN add-apt-repository ppa:webupd8team/java -y
-RUN apt-get update
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-RUN apt-get install -y oracle-java7-installer
-RUN apt-get install -y oracle-java7-set-default \
-#RUN apt-get install -y ant maven \
+  && apt-get install curl software-properties-common -y \
+  && add-apt-repository ppa:webupd8team/java -y \
+  && apt-get update \
+  && echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections \
+  && apt-get install -y oracle-java7-installer oracle-java7-set-default \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/cache/oracle-jdk7-installer
 
 # Installs Ant
 ENV ANT_VERSION 1.9.4
 ENV ANT_HOME /usr/share/ant
-ADD http://mirror.bit.edu.cn/apache//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz /usr/share/
-RUN mv /usr/share/apache-ant-${ANT_VERSION} /usr/share/ant \
-  && ln -s /usr/share/ant/bin/ant /usr/bin/ant
+RUN make $ANT_HOME \
+  && curl -sSL http://mirror.bit.edu.cn/apache//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
+  | tar --strip-components=1 -zxC $ANT_HOME \
+  && ln -s $ANT_HOME/bin/ant /usr/bin/ant
 
 # Installs Maven
 ENV MAVEN_VERSION 3.3.3
 ENV MAVEN_HOME /usr/share/maven
-ADD http://mirrors.cnnic.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz  /usr/share/
-RUN mv /usr/share/apache-maven-${MAVEN_VERSION} /usr/share/maven \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+RUN make $MAVEN_HOME \
+  && curl -sSL http://mirrors.cnnic.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+  | tar --strip-components=1 -zxC $MAVEN_HOME \
+  && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
 
 
 # Define JENKINS_HOME JAVA_HOME variable
