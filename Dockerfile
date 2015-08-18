@@ -37,7 +37,7 @@ RUN mkdir $MAVEN_HOME \
 
 
 # JENKINS
-ENV PATH $JAVA_HOME/bin:$MAVEN_HOME/bin:$ANT_HOME/bin:$PATH
+ENV PATH $JAVA_HOME/bin:$MAVEN_HOME/bin:$ANT_HOME/bin:/usr/bin/:/bin:/usr/sbin:/sbin:$PATH
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
