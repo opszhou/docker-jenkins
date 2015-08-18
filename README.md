@@ -1,10 +1,11 @@
-#Base on Official Jenkins Docker image
+#Jenkins Docker image
+基于官方镜像，修改为oracle java 7u80-b15版本，另外还添加了ant maven
 
  https://github.com/jenkinsci/docker
 
 
 
-# Usage
+# 用法
 
 ```
 docker run -p 8080:8080 -p 50000:50000 jenkins
