@@ -1,19 +1,21 @@
-FROM ubuntu:latest
+FROM centos:latest
 
-COPY sources.list /etc/apt/sources.list
 ENV TZ "Asia/Shanghai"
 ENV LANG zh_CN.UTF-8
 RUN localedef -f UTF-8 -i zh_CN zh_CN.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update \
-  && apt-get install curl software-properties-common -y \
-  && add-apt-repository ppa:webupd8team/java -y \
-  && apt-get update \
-  && echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections \
-  && apt-get install -y oracle-java7-installer oracle-java7-set-default \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -rf /var/cache/oracle-jdk7-installer
+#Installs Java
+ENV JAVA_VERSION 7u80-b15
+# ENV JAVA_NAME jdk-7u80-linux-x64
+ENV JAVA_NAME server-jre-7u80-linux-x64
+ENV JAVA_URL http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION/$JAVA_NAME.tar.gz
+ENV JAVA_HOME /usr/java/default
+RUN mkdir -p $JAVA_HOME \
+    && curl -skLH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" $JAVA_URL \
+    | tar  --strip-components=1 -zxC /usr/java/default \
+    && ln -s $JAVA_HOME/lib/amd64/jli/libjli.so /usr/lib64/
+ 
 
 # Installs Ant
 ENV ANT_VERSION 1.9.6
@@ -33,8 +35,7 @@ RUN mkdir $MAVEN_HOME \
   && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
 
 
-# Define JENKINS_HOME JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
+# JENKINS
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
