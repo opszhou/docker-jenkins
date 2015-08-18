@@ -14,7 +14,8 @@ ENV JAVA_HOME /usr/java/default
 RUN mkdir -p $JAVA_HOME \
     && curl -skLH "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" $JAVA_URL \
     | tar  --strip-components=1 -zxC /usr/java/default \
-    && ln -s $JAVA_HOME/lib/amd64/jli/libjli.so /usr/lib64/
+    && ln -s $JAVA_HOME/lib/amd64/jli/libjli.so /usr/lib64/ \
+    && ln -s $JAVA_HOME/bin/java /usr/bin/
  
 
 # Installs Ant
@@ -36,6 +37,7 @@ RUN mkdir $MAVEN_HOME \
 
 
 # JENKINS
+ENV PATH $JAVA_HOME/bin:$MAVEN_HOME/bin:$ANT_HOME/bin:$PATH
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
