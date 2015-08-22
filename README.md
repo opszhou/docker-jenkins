@@ -1,12 +1,7 @@
-# Official Jenkins Docker image
+#Base on Official Jenkins Docker image
 
-The Jenkins Continuous Integration and Delivery server.
+ https://github.com/jenkinsci/docker
 
-This is a fully functional Jenkins server, based on the Long Term Support release
-http://jenkins-ci.org/
-
-
-<img src="http://jenkins-ci.org/sites/default/files/jenkins_logo.png"/>
 
 
 # Usage
