@@ -6,9 +6,10 @@ ENV LANG zh_CN.UTF-8
 RUN localedef -f UTF-8 -i zh_CN zh_CN.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install curl software-properties-common -y
+RUN apt-get update \
+  && apt-get install curl software-properties-common -y
 RUN add-apt-repository ppa:webupd8team/java -y
-RUN apt-get update 
+RUN apt-get update
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 RUN apt-get install -y oracle-java7-installer
 RUN apt-get install -y oracle-java7-set-default
