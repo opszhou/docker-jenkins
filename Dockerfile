@@ -18,7 +18,7 @@ RUN apt-get update \
 # Installs Ant
 ENV ANT_VERSION 1.9.4
 ENV ANT_HOME /usr/share/ant
-RUN makedir $ANT_HOME \
+RUN mkdir $ANT_HOME \
   && curl -sSL http://mirror.bit.edu.cn/apache//ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
   | tar --strip-components=1 -zxC $ANT_HOME \
   && ln -s $ANT_HOME/bin/ant /usr/bin/ant
@@ -26,7 +26,7 @@ RUN makedir $ANT_HOME \
 # Installs Maven
 ENV MAVEN_VERSION 3.3.3
 ENV MAVEN_HOME /usr/share/maven
-RUN makedir $MAVEN_HOME \
+RUN mkdir $MAVEN_HOME \
   && curl -sSL http://mirrors.cnnic.cn/apache/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
   | tar --strip-components=1 -zxC $MAVEN_HOME \
   && ln -s $MAVEN_HOME/bin/mvn /usr/bin/mvn
