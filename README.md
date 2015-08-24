@@ -1,5 +1,12 @@
 #Jenkins Docker image
 基于官方镜像，修改java版本为oracle-java-7u80-b15，另外添加了ant maven
+ANT_VERSION 1.9.6
+ANT_HOME /usr/share/ant
+MAVEN_VERSION 3.3.3
+MAVEN_HOME /usr/share/maven
+JAVA_VERSION 7u80-b15
+JAVA_HOME /usr/java/default
+
 
  https://github.com/jenkinsci/docker
 
