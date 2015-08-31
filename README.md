@@ -10,7 +10,7 @@ JAVA_HOME /usr/java/default
 
  https://github.com/jenkinsci/docker
 
-
+（以下粘贴自jenkins官方）
 
 # 用法
 
